@@ -8,7 +8,7 @@ In this project you'll create your simulation world in Gazebo for all your upcom
 2. Model any object of your choice using the **Model Editor** tool in Gazebo. Your model links should be connected with joints.  
 3. Import your structure and two instances of your model inside an empty **Gazebo World**.  
 4. Import at least one model from the **Gazebo online library** and implement it in your existing Gazebo world.  
-5. Write a C++ **World Plugin** to interact with your world. Your code should display ¡°Welcome to ¡¯s World!¡± message as soon as you launch the Gazebo world file.  
+5. Write a C++ **World Plugin** to interact with your world. Your code should display â€»Welcome to ï¼Šs World!Â§ message as soon as you launch the Gazebo world file.  
 ## Prerequisites/Dependencies  
 * Gazebo >= 7.0  
 * ROS Kinetic  
@@ -29,36 +29,69 @@ sudo apt-get update && sudo apt-get upgrade -y
 ```
 4. Build and run your code.  
 ## Project Description  
-[TODO]  
 Directory Structure  
 ```
-.Build-My-World                    # Build My World Project 
-©À©¤©¤ model                          # Model files 
-©¦   ©À©¤©¤ gokart
-©¦   ©¦   ©À©¤©¤ model.config
-©¦   ©¦   ©À©¤©¤ model.sdf
-©¦   ©À©¤©¤ myfloorplan
-©¦   ©¦   ©À©¤©¤ model.config
-©¦   ©¦   ©À©¤©¤ model.sdf
-©¦   ©À©¤©¤ robot
-©¦   ©¦   ©À©¤©¤ model.config
-©¦   ©¦   ©À©¤©¤ model.sdf
-©À©¤©¤ script                         # Gazebo World plugin C++ script      
-©¦   ©À©¤©¤ welcome.cpp
-©À©¤©¤ world                          # Gazebo main World containing models 
-©¦   ©À©¤©¤ myoffice.world
-©À©¤©¤ CMakeLists.txt                 # Link libraries 
-©¸©¤©¤   
+.Go-Chase-It                                   # Go Chase It Project
+â”œâ”€â”€ catkin_ws                                  # Catkin workspace
+â”‚   â”œâ”€â”€ src
+â”‚   â”‚   â”œâ”€â”€ ball_chaser                        # ball_chaser package        
+â”‚   â”‚   â”‚   â”œâ”€â”€ launch                         # launch folder for launch files
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ ball_chaser.launch
+â”‚   â”‚   â”‚   â”œâ”€â”€ src                            # source folder for C++ scripts
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ drive_bot.cpp
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ process_images.cpp
+â”‚   â”‚   â”‚   â”œâ”€â”€ srv                            # service folder for ROS services
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ DriveToTarget.srv
+â”‚   â”‚   â”‚   â”œâ”€â”€ CMakeLists.txt                 # compiler instructions
+â”‚   â”‚   â”‚   â”œâ”€â”€ package.xml                    # package info
+â”‚   â”‚   â”œâ”€â”€ my_gokart                          # my_gokart package        
+â”‚   â”‚   â”‚   â”œâ”€â”€ launch                         # launch folder for launch files   
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ gokart_description.launch
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ world.launch
+â”‚   â”‚   â”‚   â”œâ”€â”€ urdf                           # urdf folder for xarco files
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ my_gokart.gazebo
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ my_gokart.xacro
+â”‚   â”‚   â”‚   â”œâ”€â”€ worlds                         # world folder for world files
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ empty.world
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ myoffice.world
+â”‚   â”‚   â”‚   â”œâ”€â”€ CMakeLists.txt                 # compiler instructions
+â”‚   â”‚   â”‚   â”œâ”€â”€ package.xml                    # package info
+â”‚   â”‚   â”œâ”€â”€ my_robot                           # my_robot package        
+â”‚   â”‚   â”‚   â”œâ”€â”€ launch                         # launch folder for launch files   
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ robot_description.launch
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ world.launch
+â”‚   â”‚   â”‚   â”œâ”€â”€ meshes                         # meshes folder for sensors
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ hokuyo.dae
+â”‚   â”‚   â”‚   â”œâ”€â”€ urdf                           # urdf folder for xarco files
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ my_robot.gazebo
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ my_robot.xacro
+â”‚   â”‚   â”‚   â”œâ”€â”€ worlds                         # world folder for world files
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ empty.world
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ myoffice.world
+â”‚   â”‚   â”‚   â”œâ”€â”€ CMakeLists.txt                 # compiler instructions
+â”‚   â”‚   â”‚   â”œâ”€â”€ package.xml                    # package info
+â”œâ”€â”€ my_ball                                    # Model files 
+â”‚   â”œâ”€â”€ model.config
+â”‚   â”œâ”€â”€ model.sdf
+â”œâ”€â”€ videos                                     # Video files
+â”‚   â”œâ”€â”€ Term1-Project2-Go-Chase-It-Demo.gif    # Demo video
 ```
-- [myoffice.world](/world/myoffice.world): Gazebo world file that includes the models.  
-- [myfloorplan](/model/myfloorplan): A single floor structure designed in the Building Editor tool of Gazebo.  
-- [gokart](/model/gokart): A go kart designed in the Model Editor tool of Gazebo.  
-- [robot](/model/robot): A robot designed in the Model Editor tool of Gazebo.  
-- [welcome.cpp](/script/welcome.cpp): Gazebo world plugin C++ script.  
-- [Overview.png](/screenshots/Overview.png): A screenshot of the final result.  
-- [CMakeLists.txt](CMakeLists.txt): File to link the C++ code to libraries.  
+- [Term1-Project2-Go-Chase-It-Demo.gif](/videos/Term1-Project2-Go-Chase-It-Demo.gif): A demo video for successful run.  
+- [drive_bot.cpp](/catkin_ws/src/ball_chaser/src/drive_bot.cpp): ROS service C++ script, command the robot with specify speeds.  
+- [process_images.cpp](/catkin_ws/src/ball_chaser/src/process_images.cpp): ROS service C++ script, process the camera image and return requested speeds.  
+- [gokart_description.launch](/catkin_ws/src/my_gokart/launch/gokart_description.launch): Create gokart model in Gazebo world.  
+- [world.launch](/catkin_ws/src/my_gokart/launch/world.launch): Launch my_gokart mode in Gazebo world with building and plugins.  
+- [my_gokart.gazebo](/catkin_ws/src/my_gokart/urdf/my_gokart.gazebo): Define my_gokart URDF model plugins.  
+- [my_gokart.xacro](/catkin_ws/src/my_gokart/urdf/my_gokart.xacro): Define my_gokart URDF model.  
+- [empty.world](/catkin_ws/src/my_gokart/worlds/empty.world): Gazebo world file that includes nothing.  
+- [myoffice.world](/catkin_ws/src/my_gokart/worlds/myoffice.world): Gazebo world file that includes the models.  
+- [CMakeLists.txt](/catkin_ws/src/my_gokart/CMakeLists.txt): File to link the C++ code to libraries.  
+- [robot_description.launch](/catkin_ws/src/my_robot/launch/robot_description.launch): Create robot model in Gazebo world.  
+- [hokuyo.dae](/catkin_ws/src/my_robot/meshes/hokuyo.dae): Hokuyo LiDAR sensor mesh model.  
+- [my_robot.gazebo](/catkin_ws/src/my_robot/urdf/my_robot.gazebo): Define my_robot URDF model plugins.  
+- [my_robot.xacro](/catkin_ws/src/my_robot/urdf/my_robot.xacro): Define my_robot URDF model.  
+
 ## Run the project  
-[TODO]  
 * Clone this repository
 * Open the repository and make  
 ```
@@ -73,7 +106,7 @@ or
 ```
 roslaunch my_gokart world.launch
 ```  
-* Launch ball_chaser and process_image node  
+* Launch ball_chaser and process_image nodes  
 ```
 cd /home/workspace/RoboND-Term1-P2-Go-Chase-It/catkin_ws/
 source devel/setup.bash
